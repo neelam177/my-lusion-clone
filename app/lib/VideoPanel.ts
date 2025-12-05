@@ -135,7 +135,8 @@ export class VideoPanel extends THREE.Group {
   }
 
   update() {
-    const smoothness = 0.15;
+    // const smoothness = 0.15;
+     const smoothness = 0.25; // Faster animation response
     
     this.currentProgress += (this.targetProgress - this.currentProgress) * smoothness;
     this.currentMeshY += (this.targetMeshY - this.currentMeshY) * smoothness;

@@ -100,7 +100,7 @@ const Beyond_vision = () => {
           {/* Video Panel End Section - Full width */}
           <div className="min-h-[30vh]" />
           <div id="video-panel-end-parent" className="min-h-[70vh] flex items-center justify-center">
-            <div id="video-panel-end" className="w-full h-[90vh] rounded-xl" />
+            <div id="video-panel-end" className="w-full h-[70vh] rounded-xl" />
           </div>
         </div>
       </section>
