@@ -3,16 +3,31 @@ import Interaction1 from "../components/Interaction1";
 import Interaction from "../components/Interaction";
 import { motion, useScroll, useTransform } from "framer-motion";
 import React, { useRef } from "react";
+import dynamic from "next/dynamic";
+
+const VideoPanelScene = dynamic(
+  () => import("./VideoPanelScene"),
+  { ssr: false }
+);
 
 const Beyond_vision = () => {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-     
   });
   return (
-    <div className="bg-gray-100">
-      <section className="max-w-7xl mx-auto" ref={ref}>
+    <div className="bg-gray-100 relative">
+      {/* Video Panel Scene - 3D animated video */}
+      <VideoPanelScene
+        videoSrc="/video.mp4"
+        tintColor={{ r: 0.6, g: 0.6, b: 1.0 }}
+        borderRadius={0.085}
+        startElementId="video-panel-start"
+        endElementId="video-panel-end"
+        endParentId="video-panel-end-parent"
+      />
+
+      <section className="max-w-7xl mx-auto relative z-0" ref={ref}>
         <div className="relative">
           {/* LinePath */}
           <LinePath
@@ -21,21 +36,22 @@ const Beyond_vision = () => {
           />
 
           {/* Text */}
-          <div className=" text-black px-8 py-10 absolute top-40">
+          <div className="text-black px-8 py-10 absolute top-40">
             <Interaction>
-              <h1 className=" relative text-[10vw] tracking-[-0.02em] mt-[1em] leading-[1] font-normal">
+              <h1 className="relative text-[10vw] tracking-[-0.02em] mt-[1em] leading-[1] font-normal">
                 Beyond Visions
               </h1>
             </Interaction>
             <Interaction1>
-              <h2 className=" relative text-[10vw] tracking-[-0.02em] mt-[0.9rem] mb-[0.5em] leading-[1] font-normal">
+              <h2 className="relative text-[10vw] tracking-[-0.02em] mt-[0.9rem] mb-[0.5em] leading-[1] font-normal">
                 Within Reach
               </h2>
             </Interaction1>
           </div>
 
-          {/* Content Grid */}
-          <div className="grid grid-cols-2 md:px-5 lg:px-7 overflow-hidden absolute top-[100vh] left-0 right-0 z-10 pt-12 gap-8">
+          {/* Content Grid - Video LEFT, Text RIGHT */}
+          <div className="grid grid-cols-2 md:px-5 lg:px-7 overflow-hidden absolute top-[100vh] left-0 right-0 z-0 pt-12 gap-8">
+            {/* Row 1: Empty left, Text right */}
             <div></div>
             <div>
               <Interaction1>
@@ -48,17 +64,11 @@ const Beyond_vision = () => {
                 </p>
               </Interaction1>
             </div>
-            <div className="relative w-[90%] h-[300px] bg-gray-800 rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center">
-              <video
-                src="/video.mp4" //  path to your video in public folder
-                autoPlay // play automatically
-                muted // required for autoplay in most browsers
-                loop // loop the video
-                playsInline // for mobile browsers
-                className="absolute top-0 left-0 w-full h-full object-cover"
-              ></video>
-            </div>            
-            <div className="pt-16">
+            {/* Row 2: Video LEFT, About Us button RIGHT */}
+            <div className="flex items-center justify-start">
+              <div id="video-panel-start" className="w-[90%] h-[300px] rounded-2xl" />
+            </div>
+            <div className="flex items-center">
               <button
                 type="button"
                 className="relative flex items-center justify-center px-5 py-3 gap-[1rem] bg-[#fff] text-black text-[clamp(.875rem,1vw,1.75rem)] font-semibold w-fit shadow-[0_6px_10px_#0000000a,0_2px_4px_#0000000a] rounded-full group overflow-hidden transition-all duration-300"
@@ -86,6 +96,12 @@ const Beyond_vision = () => {
               </button>
             </div>
           </div>
+
+          {/* Video Panel End Section - Full width */}
+          <div className="min-h-[30vh]" />
+          <div id="video-panel-end-parent" className="min-h-[70vh] flex items-center justify-center">
+            <div id="video-panel-end" className="w-full h-[70vh] rounded-xl" />
+          </div>
         </div>
       </section>
     </div>
@@ -94,7 +110,7 @@ const Beyond_vision = () => {
 
 export default Beyond_vision;
 
-// LinePath component stays the same
+// LinePath component
 const LinePath = ({
   className,
   scrollYProgress,
@@ -133,14 +149,3 @@ const LinePath = ({
     </svg>
   );
 };
-
-
-
-
-
-
-
-
-
-
-
