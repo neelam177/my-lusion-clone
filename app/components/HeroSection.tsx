@@ -50,7 +50,7 @@ const HeroSection = () => {
       x: 0,
       rotateZ: 0,
       opacity: 1,
-      transition: { type: "spring", stiffness: 120, damping: 15 },
+      transition: { type: "spring" as const, stiffness: 120, damping: 15 },
     },
     exit: { x: 20, rotateZ: -5, opacity: 0, transition: { duration: 0.3 } },
   };
